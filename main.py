@@ -198,23 +198,26 @@ class MainApp(MDApp):
         window1.mainloop()
 
     def NEW(self):
-        window = tkinter.Tk()
-        window.geometry("620x70")
-        window.resizable(False, False)
-        window.title("New serie")
-        label = Label(window, text="New series:")
-        entryo = Entry(window, width="100")
-        button = Button(window, text="Confrim")
-        label.grid(row=0)
-        button.place(x="560", y="25")
-        entryo.place(x="5", y="30")
+        #in here we add new serie to the table
+        WINDOW = tkinter.Tk()
+        WINDOW.geometry("620x70")
+        WINDOW.resizable(False, False)
+        WINDOW.title("New serie")
+
+        LABEL = Label(WINDOW, text="New series:")
+        INPUT = Entry(WINDOW, width="100")
+        BUTTON = Button(WINDOW, text="Confrim")
+        LABEL.grid(row=0)
+        BUTTON.place(x="560", y="25")
+        INPUT.place(x="5", y="30")
 
         def bind(event):
-            di = entryo.get()
-            listprinti[di] = 0
+            NAMESERIE = INPUT.get()
+            listprinti[NAMESERIE] = 0
+            save()
 
-        button.bind("<ButtonRelease-1>", bind)
-        window.mainloop()
+        BUTTON.bind("<ButtonRelease-1>", bind)
+        WINDOW.mainloop()
 
 
 
