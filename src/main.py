@@ -15,7 +15,7 @@ MAINLIST = {}
 listrer = []
 my_listw = []
 
-saveplace = "seriesguide.txt"
+saveplace = "seriesguide.json"
 
 
 def LISTFORRUN():
