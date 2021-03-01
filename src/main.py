@@ -71,7 +71,8 @@ class MainApp(MDApp):
         #in here we give directory after that this will get
         #name of folders in directory
         try:
-            TXT = TKINTERSMALL("620x70","Directory","Type your series directory:","100","Confrim","560","25")
+            TXT = TKINTERSMALL("620x70","Directory","Type your series directory:"
+                               ,"100","Confrim","555","27")
             print(TXT)
             DIRECT.append(TXT)
             my_list = os.listdir(DIRECT[len(DIRECT)-1])
@@ -134,7 +135,7 @@ class MainApp(MDApp):
                 try:
                     seasonupdate = int(TKINTERSMALL("620x70",f"{VALUE[NUMSERIE]}",
                                                     f"{VALUE[NUMSERIE]} Season ",
-                                                    "100","Confrim","560","25"))
+                                                    "100","Confrim","555","27"))
                     MAINLIST[VALUE[numserie1]] = seasonupdate
                     save()
                 except:
@@ -147,7 +148,7 @@ class MainApp(MDApp):
             try:
                 TEXT = NAMESERIE = TKINTERSMALL("620x70","Delete",
                                                 "Type number of series which you want to delete(Example:1,2,10):",
-                                                "100","Confrim","560","25")
+                                                "100","Confrim","555","27")
                 SPLITER = TEXT.split(",")
                 for deleter in SPLITER:
                    del MAINLIST[VALUE[int(deleter) - 1]]
@@ -166,9 +167,6 @@ class MainApp(MDApp):
         #show table
         WINDOW = tkinter.Tk()
         WINDOW.title("Tabel")
-        WINDOW.geometry("600x670+5+5")
-        BUTTON = Button(WINDOW, text="Confrim")
-        BUTTON.place(x="140", y="25")
         data = [["Serie Name", "Season"]]
 
         DICT=LISTFORRUN()
@@ -186,7 +184,8 @@ class MainApp(MDApp):
     def NEW(self):
         #in here we add new serie to the table
         try:
-            NAMESERIE = TKINTERSMALL("620x70","Directory","New series:","100","Confrim","560","25")
+            NAMESERIE = TKINTERSMALL("620x70","Directory","New series:"
+                                     ,"100","Confrim","555","27")
             MAINLIST[NAMESERIE] = 0
             save()
         except:
