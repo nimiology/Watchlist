@@ -12,30 +12,28 @@ from kivy.core.window import Window
 
 direct1 = []
 direct01 = []
-listprinti = {}
+MAINLIST = {}
 listrer = []
 my_listw = []
-lofi = []
 
 saveplace = "seriesguide.txt"
+def LISTFORRUN():
+    LISTFORRUN = []
+    with open(saveplace, "r") as FILE:
+        for line in FILE:
+            LISTFORRUN.append(eval(line))
+    print(len(LISTFORRUN))
+    return LISTFORRUN[0]
 
 try:
-    with open(saveplace, "r") as inf:
-        for line in inf:
-            lofi.append(eval(line))
-        for olp in range(0, (len(lofi))):
-            pass
-        listprinti.update(lofi[olp])
+    MAINLIST.update(LISTFORRUN())
 except:
     with open(saveplace, "+w") as file:
-        file.write(json.dumps(listprinti))
-
-
-
+        file.write(json.dumps(MAINLIST))
 
 def save():
     with open(saveplace, "+w") as file:
-        file.write(json.dumps(listprinti))
+        file.write(json.dumps(MAINLIST))
     toast("SAVED", 7.5)
 
 
@@ -46,7 +44,6 @@ class MainApp(MDApp):
         self.theme_cls.theme_style = "Dark" 
         Window.size = (500, 600)
         return Builder.load_file("UI.kv")
-
     def DIRECTORY(self):
         window = tkinter.Tk()
         window.geometry("620x70")
@@ -70,7 +67,7 @@ class MainApp(MDApp):
             for jojoj in range(0, len(my_list)):
                 my_listw.append(my_list[jojoj])
             for emin in range(0, len(my_listw)):
-                listprinti[my_listw[emin]] = 0
+                MAINLIST[my_listw[emin]] = 0
             save()
 
 
@@ -140,8 +137,8 @@ class MainApp(MDApp):
                 def confrim(event):
                     numserie1 = numserie
                     seasonupdate = int(entryo.get())
-                    listprinti[lumpen[numserie1]] = seasonupdate
-                    print(listprinti)
+                    MAINLIST[lumpen[numserie1]] = seasonupdate
+                    print(MAINLIST)
 
                 buttonqq.bind("<ButtonRelease-1>", confrim)
                 windowedit.mainloop()
@@ -164,9 +161,9 @@ class MainApp(MDApp):
                 die = entryo.get()
                 jodakonnande=die.split(",")
                 for deleter in jodakonnande:
-                   del listprinti[lumpen[int(deleter)-1]]
+                   del MAINLIST[lumpen[int(deleter) - 1]]
 
-                   print (listprinti)
+                   print (MAINLIST)
             button.bind("<ButtonRelease-1>", bind)
 
             window.mainloop()
@@ -177,25 +174,23 @@ class MainApp(MDApp):
         window1.mainloop()
 
     def TABLE(self):
-        data=[["Serie Name","Season"]]
-        window1 = tkinter.Tk()
-        window1.title("Tabel")
-        window1.geometry("600x670+5+5")
-        lofi=[]
-        with open(saveplace,"r") as inf:
-          for line in inf:
-               lofi.append(eval(line))
-        for olp in range(0,(len(lofi))):
-            pass
-        lifii=lofi[olp]
-        for key, value in lifii.items():
+
+        WINDOW = tkinter.Tk()
+        WINDOW.title("Tabel")
+        WINDOW.geometry("600x670+5+5")
+        data = [["Serie Name", "Season"]]
+
+        DICT=LISTFORRUN()
+
+        for key, value in DICT.items():
             data.append([key,value])
-        x=tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
-        T = tkinter.Text(window1, height=100, width=1000)
-        T.pack()
-        T.insert(tkinter.END, "{0}".format(x))
+
+        TABLE=tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
+        TEXT = tkinter.Text(WINDOW, height=100, width=1000)
+        TEXT.pack()
+        TEXT.insert(tkinter.END, "{0}".format(TABLE))
         tkinter.mainloop()
-        window1.mainloop()
+        WINDOW.mainloop()
 
     def NEW(self):
         #in here we add new serie to the table
@@ -213,7 +208,7 @@ class MainApp(MDApp):
 
         def bind(event):
             NAMESERIE = INPUT.get()
-            listprinti[NAMESERIE] = 0
+            MAINLIST[NAMESERIE] = 0
             save()
 
         BUTTON.bind("<ButtonRelease-1>", bind)
