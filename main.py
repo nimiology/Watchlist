@@ -6,7 +6,6 @@ from tkinter import *
 from kivy.config import Config
 from kivy.lang import Builder
 from kivymd.app import MDApp
-from kivymd.toast import toast
 from tabulate import _table_formats, tabulate
 from kivy.core.window import Window
 
@@ -68,7 +67,6 @@ class MainApp(MDApp):
         BUTTON.bind("<ButtonRelease-1>", bind)
 
         WINDOW.mainloop()
-
 
     def EDIT(self):
         window1 = tkinter.Tk()
@@ -213,7 +211,6 @@ class MainApp(MDApp):
 
         BUTTON.bind("<ButtonRelease-1>", bind)
         WINDOW.mainloop()
-
 
 
 MainApp().run()
