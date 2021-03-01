@@ -6,23 +6,23 @@ from tkinter import *
 from kivy.config import Config
 from kivy.lang import Builder
 from kivymd.app import MDApp
-from kivymd.toast import toast
 from tabulate import _table_formats, tabulate
 from kivy.core.window import Window
 
-direct1 = []
+DIRECT = []
 direct01 = []
 MAINLIST = {}
 listrer = []
 my_listw = []
 
 saveplace = "seriesguide.txt"
+
+
 def LISTFORRUN():
     LISTFORRUN = []
     with open(saveplace, "r") as FILE:
         for line in FILE:
             LISTFORRUN.append(eval(line))
-    print(len(LISTFORRUN))
     return LISTFORRUN[0]
 
 try:
@@ -34,7 +34,6 @@ except:
 def save():
     with open(saveplace, "+w") as file:
         file.write(json.dumps(MAINLIST))
-    toast("SAVED", 7.5)
 
 
 
@@ -45,41 +44,38 @@ class MainApp(MDApp):
         Window.size = (500, 600)
         return Builder.load_file("UI.kv")
     def DIRECTORY(self):
-        window = tkinter.Tk()
-        window.geometry("620x70")
-        window.resizable(False, False)
-        window.title("Directory")
-        label = Label(window, text="Type your series directory:")
-        entryo = Entry(window, width="100")
-        button = Button(window, text="Confrim")
-        label.grid(row=0)
-        button.place(x="560", y="25")
-        entryo.place(x="5", y="30")
+        WINDOW = tkinter.Tk()
+        WINDOW.geometry("620x70")
+        WINDOW.resizable(False, False)
+        WINDOW.title("Directory")
+        LABEL = Label(WINDOW, text="Type your series directory:")
+        INPUT = Entry(WINDOW, width="100")
+        BUTTON = Button(WINDOW, text="Confrim")
+        LABEL.grid(row=0)
+        BUTTON.place(x="560", y="25")
+        INPUT.place(x="5", y="30")
 
         def bind(event):
-            di = entryo.get()
-            direct1.append(di)
-            print(direct1)
-            we = 0
-            for we in range(0, len(direct1)):
-                pass
-            my_list = os.listdir(direct1[we])
-            for jojoj in range(0, len(my_list)):
-                my_listw.append(my_list[jojoj])
-            for emin in range(0, len(my_listw)):
-                MAINLIST[my_listw[emin]] = 0
+            TXT = INPUT.get()
+            DIRECT.append(TXT)
+            my_list = os.listdir(DIRECT[len(DIRECT)-1])
+
+            for jojoj in my_list:
+                my_listw.append(jojoj)
+            for emin in my_listw:
+                MAINLIST[emin] = 0
             save()
 
 
-        button.bind("<ButtonRelease-1>", bind)
+        BUTTON.bind("<ButtonRelease-1>", bind)
 
-        window.mainloop()
+        WINDOW.mainloop()
 
 
     def EDIT(self):
-        window1 = tkinter.Tk()
-        window1.title("Edit")
-        window1.geometry("920x670+20+5")
+        WINDOW = tkinter.Tk()
+        WINDOW.title("Edit")
+        WINDOW.geometry("920x670+20+5")
         lofi = []
         with open(saveplace, "r") as inf:
             for line in inf:
@@ -93,7 +89,7 @@ class MainApp(MDApp):
             lumpen.append(key)
             lumpenn.append(value)
         for kokoqe in range(0, len(lumpenn)):
-            mo = Label(window1, text="[{0}]  {1}  ".format((kokoqe + 1), lumpen[kokoqe]))
+            mo = Label(WINDOW, text="[{0}]  {1}  ".format((kokoqe + 1), lumpen[kokoqe]))
             print(len(lifii))
             moz = "15"
             if (kokoqe > 21):
@@ -105,9 +101,9 @@ class MainApp(MDApp):
             else:
                 aw = 10 + kokoqe * 30
             mo.place(x=moz, y=aw)
-        buttone = Button(window1, text="Edit", width="10")
+        buttone = Button(WINDOW, text="Edit", width="10")
         buttone.place(x="820", y="620")
-        button = Button(window1, text="Delete", width="10")
+        button = Button(WINDOW, text="Delete", width="10")
         button.place(x="730", y="620")
 
         def binda(event):
@@ -171,7 +167,7 @@ class MainApp(MDApp):
         buttone.bind("<ButtonRelease-1>", binda)
         button.bind("<ButtonRelease-1>", bindq)
 
-        window1.mainloop()
+        WINDOW.mainloop()
 
     def TABLE(self):
 
