@@ -1,4 +1,3 @@
-import getpass
 import json
 import os
 import tkinter
@@ -18,8 +17,7 @@ listrer = []
 my_listw = []
 lofi = []
 
-username = getpass.getuser()
-saveplace = "C:\\Users\\{0}\\Documents\\seriesguide.txt".format(username)
+saveplace = "seriesguide.txt"
 
 try:
     with open(saveplace, "r") as inf:
@@ -32,45 +30,7 @@ except:
     with open(saveplace, "+w") as file:
         file.write(json.dumps(listprinti))
 
-Kivymd = '''
 
-Screen:
-
-    MDRaisedButton:
-        text: "Save"
-        size_hint:0.95, 0.29
-        pos_hint:{"center_x":0.5, "center_y":0.18}
-        font_size:"20sp"
-        on_release:app.save().akhar()
-###########################################################################
-    MDRaisedButton:
-        text: "New"
-        size_hint:0.45, 0.29
-        pos_hint:{"center_x":0.25, "center_y":0.5}
-        font_size:"20sp"
-        on_release:app.new().obi()
-
-    MDRaisedButton:
-        text: "Table"
-        size_hint:0.45, 0.29
-        pos_hint:{"center_x":0.75, "center_y":0.5}
-        font_size:"20sp"
-        on_release:app.table().joi()
-#############################################################################
-    MDRaisedButton:
-        text: "Directory"
-        size_hint:0.45, 0.29
-        pos_hint:{"center_x":0.25, "center_y":0.82}
-        font_size:"20sp"
-        on_release: app.shashooo().goh()
-
-    MDRaisedButton:
-        text: "Edit"
-        size_hint:0.45, 0.29
-        pos_hint:{"center_x":0.75, "center_y":0.82}
-        font_size:"20sp"
-        on_release: app.scanning().ab()
-'''
 
 
 class MainApp(MDApp):
@@ -78,7 +38,14 @@ class MainApp(MDApp):
         self.theme_cls.primary_palette = "Red"
         self.theme_cls.theme_style = "Dark" 
         Window.size = (500, 600)
-        return Builder.load_string(Kivymd)
+        return Builder.load_file("UI.kv")
+
+    def save(self):
+        with open(saveplace, "+w") as file:
+            file.write(json.dumps(listprinti))
+        toast("SAVED", 7.5)
+
+
 
     class shashooo():
         def goh(self):
@@ -250,11 +217,6 @@ class MainApp(MDApp):
             button.bind("<ButtonRelease-1>", bind)
             window.mainloop()
 
-    class save():
-        def akhar(self):
-            with open(saveplace, "+w") as file:
-                file.write(json.dumps(listprinti))
-            toast("SAVED", 7.5)
 
 
 MainApp().run()
