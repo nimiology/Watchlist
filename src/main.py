@@ -25,15 +25,17 @@ def LISTFORRUN():
             LISTFORRUN.append(eval(line))
     return LISTFORRUN[len(LISTFORRUN)-1]
 
-try:
-    MAINLIST.update(LISTFORRUN())
-except:
-    with open(saveplace, "+w") as file:
-        file.write(json.dumps(MAINLIST))
-
 def save():
     with open(saveplace, "+w") as file:
         file.write(json.dumps(MAINLIST))
+
+
+try:
+    MAINLIST.update(LISTFORRUN())
+except:
+    save()
+
+
 
 def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     #add name of folders from directory folder
