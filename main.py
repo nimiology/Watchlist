@@ -177,25 +177,27 @@ class MainApp(MDApp):
         window1.mainloop()
 
     def TABLE(self):
-        data=[["Serie Name","Season"]]
-        window1 = tkinter.Tk()
-        window1.title("Tabel")
-        window1.geometry("600x670+5+5")
-        lofi=[]
-        with open(saveplace,"r") as inf:
-          for line in inf:
-               lofi.append(eval(line))
-        for olp in range(0,(len(lofi))):
-            pass
-        lifii=lofi[olp]
-        for key, value in lifii.items():
+        WINDOW = tkinter.Tk()
+        WINDOW.title("Tabel")
+        WINDOW.geometry("600x670+5+5")
+
+        data = [["Serie Name", "Season"]]
+        DICINLIST=[]
+        with open(saveplace,"r") as TXT:
+          for line in TXT:
+               DICINLIST.append(eval(line))
+
+        DICT=DICINLIST[len(DICINLIST)-1]
+        for key, value in DICT.items():
             data.append([key,value])
-        x=tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
-        T = tkinter.Text(window1, height=100, width=1000)
-        T.pack()
-        T.insert(tkinter.END, "{0}".format(x))
+
+        TAble=tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
+
+        TEXT = tkinter.Text(WINDOW, height=100, width=1000)
+        TEXT.pack()
+        TEXT.insert(tkinter.END, "{0}".format(TAble))
         tkinter.mainloop()
-        window1.mainloop()
+        WINDOW.mainloop()
 
     def NEW(self):
         #in here we add new serie to the table
