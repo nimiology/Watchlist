@@ -10,11 +10,11 @@ from kivymd.toast import toast
 from tabulate import _table_formats, tabulate
 from kivy.core.window import Window
 
-direct1 = []
+DIRECTS = []
 direct01 = []
 listprinti = {}
 listrer = []
-my_listw = []
+NEWADDEDS = []
 lofi = []
 
 saveplace = "seriesguide.txt"
@@ -56,13 +56,12 @@ class MainApp(MDApp):
 
         def bind(event):
             DIRECT = INPUT.get()
-            direct1.append(DIRECT)
-            print(direct1)
-            my_list = os.listdir(direct1[len(direct1)-1])
-            for jojoj in my_list:
-                my_listw.append(jojoj)
-            for emin in my_listw:
-                listprinti[emin] = 0
+            DIRECTS.append(DIRECT)
+            LISTFILES = os.listdir(DIRECTS[len(DIRECTS) - 1])
+            for NAMEFOLDER in LISTFILES:
+                NEWADDEDS.append(NAMEFOLDER)
+            for NAME in NEWADDEDS:
+                listprinti[NAME] = 0
             save()
 
 
