@@ -30,14 +30,9 @@ except:
     with open(saveplace, "+w") as file:
         file.write(json.dumps(listprinti))
 
-
-
-
 def save():
     with open(saveplace, "+w") as file:
         file.write(json.dumps(listprinti))
-    toast("SAVED", 7.5)
-
 
 
 class MainApp(MDApp):
@@ -48,35 +43,32 @@ class MainApp(MDApp):
         return Builder.load_file("UI.kv")
 
     def DIRECTORY(self):
-        window = tkinter.Tk()
-        window.geometry("620x70")
-        window.resizable(False, False)
-        window.title("Directory")
-        label = Label(window, text="Type your series directory:")
-        entryo = Entry(window, width="100")
-        button = Button(window, text="Confrim")
-        label.grid(row=0)
-        button.place(x="560", y="25")
-        entryo.place(x="5", y="30")
+        WINDOW = tkinter.Tk()
+        WINDOW.geometry("620x70")
+        WINDOW.resizable(False, False)
+        WINDOW.title("Directory")
+        LABEL = Label(WINDOW, text="Type your series directory:")
+        INPUT = Entry(WINDOW, width="100")
+        BUTTON = Button(WINDOW, text="Confrim")
+        LABEL.grid(row=0)
+        BUTTON.place(x="560", y="25")
+        INPUT.place(x="5", y="30")
 
         def bind(event):
-            di = entryo.get()
-            direct1.append(di)
+            DIRECT = INPUT.get()
+            direct1.append(DIRECT)
             print(direct1)
-            we = 0
-            for we in range(0, len(direct1)):
-                pass
-            my_list = os.listdir(direct1[we])
-            for jojoj in range(0, len(my_list)):
-                my_listw.append(my_list[jojoj])
-            for emin in range(0, len(my_listw)):
-                listprinti[my_listw[emin]] = 0
+            my_list = os.listdir(direct1[len(direct1)-1])
+            for jojoj in my_list:
+                my_listw.append(jojoj)
+            for emin in my_listw:
+                listprinti[emin] = 0
             save()
 
 
-        button.bind("<ButtonRelease-1>", bind)
+        BUTTON.bind("<ButtonRelease-1>", bind)
 
-        window.mainloop()
+        WINDOW.mainloop()
 
 
     def EDIT(self):
@@ -177,6 +169,8 @@ class MainApp(MDApp):
         window1.mainloop()
 
     def TABLE(self):
+        #this def show series
+
         WINDOW = tkinter.Tk()
         WINDOW.title("Tabel")
         WINDOW.geometry("600x670+5+5")
