@@ -193,7 +193,7 @@ class MainApp(MDApp):
         WINDOW = tkinter.Tk()
         WINDOW.geometry("620x70")
         WINDOW.resizable(False, False)
-        WINDOW.title("New serie")
+        WINDOW.title("New Serie")
 
         LABEL = Label(WINDOW, text="New series:")
         INPUT = Entry(WINDOW, width="100")
