@@ -23,7 +23,7 @@ def LISTFORRUN():
     with open(saveplace, "r") as FILE:
         for line in FILE:
             LISTFORRUN.append(eval(line))
-    return LISTFORRUN[0]
+    return LISTFORRUN[len(LISTFORRUN)-1]
 
 try:
     MAINLIST.update(LISTFORRUN())
@@ -39,10 +39,11 @@ def save():
 
 class MainApp(MDApp):
     def build(self):
-        self.theme_cls.primary_palette = "Red"
+        self.theme_cls.primary_palette = "Lime"
         self.theme_cls.theme_style = "Dark" 
         Window.size = (500, 600)
         return Builder.load_file("UI.kv")
+
     def DIRECTORY(self):
         WINDOW = tkinter.Tk()
         WINDOW.geometry("620x70")
@@ -71,26 +72,20 @@ class MainApp(MDApp):
 
         WINDOW.mainloop()
 
-
     def EDIT(self):
         WINDOW = tkinter.Tk()
         WINDOW.title("Edit")
         WINDOW.geometry("920x670+20+5")
-        lofi = []
-        with open(saveplace, "r") as inf:
-            for line in inf:
-                lofi.append(eval(line))
-        for mozi in range(0, (len(lofi))):
-            pass
-        lifii = lofi[mozi]
+
+        LISTRUN = LISTFORRUN()
         lumpenn = []
         lumpen = []
-        for key, value in lifii.items():
+        for key, value in LISTRUN.items():
             lumpen.append(key)
             lumpenn.append(value)
         for kokoqe in range(0, len(lumpenn)):
             mo = Label(WINDOW, text="[{0}]  {1}  ".format((kokoqe + 1), lumpen[kokoqe]))
-            print(len(lifii))
+            print(len(LISTRUN))
             moz = "15"
             if (kokoqe > 21):
                 moz = "500"
