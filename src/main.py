@@ -45,6 +45,7 @@ class MainApp(MDApp):
         return Builder.load_file("UI.kv")
 
     def DIRECTORY(self):
+        #add name of folders from directory folder
         WINDOW = tkinter.Tk()
         WINDOW.geometry("620x70")
         WINDOW.resizable(False, False)
@@ -73,6 +74,7 @@ class MainApp(MDApp):
         WINDOW.mainloop()
 
     def EDIT(self):
+        #edit serie
         WINDOW = tkinter.Tk()
         WINDOW.title("Edit")
         WINDOW.geometry("920x670+20+5")
@@ -170,7 +172,7 @@ class MainApp(MDApp):
         WINDOW.mainloop()
 
     def TABLE(self):
-
+        #show table
         WINDOW = tkinter.Tk()
         WINDOW.title("Tabel")
         WINDOW.geometry("600x670+5+5")
