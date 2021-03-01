@@ -6,14 +6,15 @@ from tkinter import *
 from kivy.config import Config
 from kivy.lang import Builder
 from kivymd.app import MDApp
+from kivymd.toast import toast
 from tabulate import _table_formats, tabulate
 from kivy.core.window import Window
 
-DIRECTS = []
+direct1 = []
 direct01 = []
 listprinti = {}
 listrer = []
-NEWADDEDS = []
+my_listw = []
 lofi = []
 
 saveplace = "seriesguide.txt"
@@ -29,9 +30,14 @@ except:
     with open(saveplace, "+w") as file:
         file.write(json.dumps(listprinti))
 
+
+
+
 def save():
     with open(saveplace, "+w") as file:
         file.write(json.dumps(listprinti))
+    toast("SAVED", 7.5)
+
 
 
 class MainApp(MDApp):
@@ -42,31 +48,36 @@ class MainApp(MDApp):
         return Builder.load_file("UI.kv")
 
     def DIRECTORY(self):
-        WINDOW = tkinter.Tk()
-        WINDOW.geometry("620x70")
-        WINDOW.resizable(False, False)
-        WINDOW.title("Directory")
-        LABEL = Label(WINDOW, text="Type your series directory:")
-        INPUT = Entry(WINDOW, width="100")
-        BUTTON = Button(WINDOW, text="Confrim")
-        LABEL.grid(row=0)
-        BUTTON.place(x="560", y="25")
-        INPUT.place(x="5", y="30")
+        window = tkinter.Tk()
+        window.geometry("620x70")
+        window.resizable(False, False)
+        window.title("Directory")
+        label = Label(window, text="Type your series directory:")
+        entryo = Entry(window, width="100")
+        button = Button(window, text="Confrim")
+        label.grid(row=0)
+        button.place(x="560", y="25")
+        entryo.place(x="5", y="30")
 
         def bind(event):
-            DIRECT = INPUT.get()
-            DIRECTS.append(DIRECT)
-            LISTFILES = os.listdir(DIRECTS[len(DIRECTS) - 1])
-            for NAMEFOLDER in LISTFILES:
-                NEWADDEDS.append(NAMEFOLDER)
-            for NAME in NEWADDEDS:
-                listprinti[NAME] = 0
+            di = entryo.get()
+            direct1.append(di)
+            print(direct1)
+            we = 0
+            for we in range(0, len(direct1)):
+                pass
+            my_list = os.listdir(direct1[we])
+            for jojoj in range(0, len(my_list)):
+                my_listw.append(my_list[jojoj])
+            for emin in range(0, len(my_listw)):
+                listprinti[my_listw[emin]] = 0
             save()
 
 
-        BUTTON.bind("<ButtonRelease-1>", bind)
+        button.bind("<ButtonRelease-1>", bind)
 
-        WINDOW.mainloop()
+        window.mainloop()
+
 
     def EDIT(self):
         window1 = tkinter.Tk()
@@ -166,29 +177,25 @@ class MainApp(MDApp):
         window1.mainloop()
 
     def TABLE(self):
-        #this def show series
-
-        WINDOW = tkinter.Tk()
-        WINDOW.title("Tabel")
-        WINDOW.geometry("600x670+5+5")
-
-        data = [["Serie Name", "Season"]]
-        DICINLIST=[]
-        with open(saveplace,"r") as TXT:
-          for line in TXT:
-               DICINLIST.append(eval(line))
-
-        DICT=DICINLIST[len(DICINLIST)-1]
-        for key, value in DICT.items():
+        data=[["Serie Name","Season"]]
+        window1 = tkinter.Tk()
+        window1.title("Tabel")
+        window1.geometry("600x670+5+5")
+        lofi=[]
+        with open(saveplace,"r") as inf:
+          for line in inf:
+               lofi.append(eval(line))
+        for olp in range(0,(len(lofi))):
+            pass
+        lifii=lofi[olp]
+        for key, value in lifii.items():
             data.append([key,value])
-
-        TAble=tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
-
-        TEXT = tkinter.Text(WINDOW, height=100, width=1000)
-        TEXT.pack()
-        TEXT.insert(tkinter.END, "{0}".format(TAble))
+        x=tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
+        T = tkinter.Text(window1, height=100, width=1000)
+        T.pack()
+        T.insert(tkinter.END, "{0}".format(x))
         tkinter.mainloop()
-        WINDOW.mainloop()
+        window1.mainloop()
 
     def NEW(self):
         #in here we add new serie to the table
@@ -211,6 +218,7 @@ class MainApp(MDApp):
 
         BUTTON.bind("<ButtonRelease-1>", bind)
         WINDOW.mainloop()
+
 
 
 MainApp().run()
