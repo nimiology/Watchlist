@@ -35,7 +35,28 @@ def save():
     with open(saveplace, "+w") as file:
         file.write(json.dumps(MAINLIST))
 
+def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
+    #add name of folders from directory folder
+    WINDOW = tkinter.Tk()
+    WINDOW.geometry(geometry)
+    WINDOW.resizable(False, False)
+    WINDOW.title(title)
+    LABEL = Label(WINDOW, text=label)
+    INPUT = Entry(WINDOW, width=inputwidth)
+    BUTTON = Button(WINDOW, text=buttontext)
+    LABEL.grid(row=0)
+    BUTTON.place(x=X, y=Y)
+    INPUT.place(x="5", y="30")
 
+    def bind(event):
+        global TXTBIND
+        TXTBIND = INPUT.get()
+        WINDOW.destroy()
+
+    BUTTON.bind("<ButtonRelease-1>", bind)
+
+    WINDOW.mainloop()
+    return TXTBIND
 
 class MainApp(MDApp):
     def build(self):
@@ -45,33 +66,18 @@ class MainApp(MDApp):
         return Builder.load_file("UI.kv")
 
     def DIRECTORY(self):
-        #add name of folders from directory folder
-        WINDOW = tkinter.Tk()
-        WINDOW.geometry("620x70")
-        WINDOW.resizable(False, False)
-        WINDOW.title("Directory")
-        LABEL = Label(WINDOW, text="Type your series directory:")
-        INPUT = Entry(WINDOW, width="100")
-        BUTTON = Button(WINDOW, text="Confrim")
-        LABEL.grid(row=0)
-        BUTTON.place(x="560", y="25")
-        INPUT.place(x="5", y="30")
+        #in here we give directory after that this will get
+        #name of folders in directory
+        TXT = TKINTERSMALL("620x70","Directory","Type your series directory:","100","Confrim","560","25")
+        print(TXT)
+        DIRECT.append(TXT)
+        my_list = os.listdir(DIRECT[len(DIRECT)-1])
 
-        def bind(event):
-            TXT = INPUT.get()
-            DIRECT.append(TXT)
-            my_list = os.listdir(DIRECT[len(DIRECT)-1])
-
-            for jojoj in my_list:
-                my_listw.append(jojoj)
-            for emin in my_listw:
-                MAINLIST[emin] = 0
-            save()
-
-
-        BUTTON.bind("<ButtonRelease-1>", bind)
-
-        WINDOW.mainloop()
+        for jojoj in my_list:
+            my_listw.append(jojoj)
+        for emin in my_listw:
+            MAINLIST[emin] = 0
+        save()
 
     def EDIT(self):
         #edit serie
@@ -119,52 +125,27 @@ class MainApp(MDApp):
 
             def edit(event):
                 NUMSERIE = int(INPUT.get())-1
-                WINDOW = tkinter.Tk()
-                WINDOW.geometry("620x70")
-                WINDOW.resizable(False, False)
+                numserie1 = NUMSERIE
+                seasonupdate = int(TKINTERSMALL("620x70",f"{VALUE[NUMSERIE]}",
+                                                f"{VALUE[NUMSERIE]} Season ",
+                                                "100","Confrim","560","25"))
+                MAINLIST[VALUE[numserie1]] = seasonupdate
+                save()
 
-                WINDOW.title(f"{VALUE[NUMSERIE]}")
-                LABEL = Label(WINDOW, text=f"{VALUE[NUMSERIE]} Season ")
-                INPUT1 = Entry(WINDOW, width="100")
-                BUTTON = Button(WINDOW, text="Confrim")
-                LABEL.grid(row=0)
-                BUTTON.place(x="560", y="25")
-                INPUT1.place(x="5", y="30")
-                def confrim(event):
-                    numserie1 = NUMSERIE
-                    seasonupdate = int(INPUT1.get())
-                    MAINLIST[VALUE[numserie1]] = seasonupdate
-                    print(MAINLIST)
-                    save()
-
-                BUTTON.bind("<ButtonRelease-1>", confrim)
-                WINDOW.mainloop()
 
             BUTTON.bind("<ButtonRelease-1>", edit)
 
         def DELET(event):
-            WINDOW = tkinter.Tk()
-            WINDOW.geometry("620x70")
-            WINDOW.resizable(False, False)
-            WINDOW.title("Delete")
-            LABEL = Label(WINDOW, text="Type number of series which you want to delete(Example:1,2,10):")
-            INPUT = Entry(WINDOW, width="100")
-            BUTTON = Button(WINDOW, text="Confrim")
-            LABEL.grid(row=0)
-            BUTTON.place(x="560", y="25")
-            INPUT.place(x="5", y="30")
 
-            def bind(event):
-                TEXT = INPUT.get()
-                SPLITER = TEXT.split(",")
-                for deleter in SPLITER:
-                   del MAINLIST[VALUE[int(deleter) - 1]]
-                   print (MAINLIST)
-                save()
+            TEXT = NAMESERIE = TKINTERSMALL("620x70","Delete",
+                                            "Type number of series which you want to delete(Example:1,2,10):",
+                                            "100","Confrim","560","25")
+            SPLITER = TEXT.split(",")
+            for deleter in SPLITER:
+               del MAINLIST[VALUE[int(deleter) - 1]]
+               print (MAINLIST)
+            save()
 
-            BUTTON.bind("<ButtonRelease-1>", bind)
-
-            WINDOW.mainloop()
 
         BUTTON1.bind("<ButtonRelease-1>", EDIT)
         BUTTON2.bind("<ButtonRelease-1>", DELET)
@@ -192,26 +173,9 @@ class MainApp(MDApp):
 
     def NEW(self):
         #in here we add new serie to the table
-        WINDOW = tkinter.Tk()
-        WINDOW.geometry("620x70")
-        WINDOW.resizable(False, False)
-        WINDOW.title("New Serie")
-
-        LABEL = Label(WINDOW, text="New series:")
-        INPUT = Entry(WINDOW, width="100")
-        BUTTON = Button(WINDOW, text="Confrim")
-        LABEL.grid(row=0)
-        BUTTON.place(x="560", y="25")
-        INPUT.place(x="5", y="30")
-
-        def bind(event):
-            NAMESERIE = INPUT.get()
-            MAINLIST[NAMESERIE] = 0
-            save()
-
-        BUTTON.bind("<ButtonRelease-1>", bind)
-        WINDOW.mainloop()
-
+        NAMESERIE = TKINTERSMALL("620x70","Directory","New series:","100","Confrim","560","25")
+        MAINLIST[NAMESERIE] = 0
+        save()
 
 
 MainApp().run()
