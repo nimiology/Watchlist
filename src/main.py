@@ -70,16 +70,19 @@ class MainApp(MDApp):
     def DIRECTORY(self):
         #in here we give directory after that this will get
         #name of folders in directory
-        TXT = TKINTERSMALL("620x70","Directory","Type your series directory:","100","Confrim","560","25")
-        print(TXT)
-        DIRECT.append(TXT)
-        my_list = os.listdir(DIRECT[len(DIRECT)-1])
+        try:
+            TXT = TKINTERSMALL("620x70","Directory","Type your series directory:","100","Confrim","560","25")
+            print(TXT)
+            DIRECT.append(TXT)
+            my_list = os.listdir(DIRECT[len(DIRECT)-1])
 
-        for jojoj in my_list:
-            my_listw.append(jojoj)
-        for emin in my_listw:
-            MAINLIST[emin] = 0
-        save()
+            for jojoj in my_list:
+                my_listw.append(jojoj)
+            for emin in my_listw:
+                MAINLIST[emin] = 0
+            save()
+        except:
+            pass
 
     def EDIT(self):
         #edit serie
@@ -128,25 +131,30 @@ class MainApp(MDApp):
             def edit(event):
                 NUMSERIE = int(INPUT.get())-1
                 numserie1 = NUMSERIE
-                seasonupdate = int(TKINTERSMALL("620x70",f"{VALUE[NUMSERIE]}",
-                                                f"{VALUE[NUMSERIE]} Season ",
-                                                "100","Confrim","560","25"))
-                MAINLIST[VALUE[numserie1]] = seasonupdate
-                save()
+                try:
+                    seasonupdate = int(TKINTERSMALL("620x70",f"{VALUE[NUMSERIE]}",
+                                                    f"{VALUE[NUMSERIE]} Season ",
+                                                    "100","Confrim","560","25"))
+                    MAINLIST[VALUE[numserie1]] = seasonupdate
+                    save()
+                except:
+                    pass
 
 
             BUTTON.bind("<ButtonRelease-1>", edit)
 
         def DELET(event):
-
-            TEXT = NAMESERIE = TKINTERSMALL("620x70","Delete",
-                                            "Type number of series which you want to delete(Example:1,2,10):",
-                                            "100","Confrim","560","25")
-            SPLITER = TEXT.split(",")
-            for deleter in SPLITER:
-               del MAINLIST[VALUE[int(deleter) - 1]]
-               print (MAINLIST)
-            save()
+            try:
+                TEXT = NAMESERIE = TKINTERSMALL("620x70","Delete",
+                                                "Type number of series which you want to delete(Example:1,2,10):",
+                                                "100","Confrim","560","25")
+                SPLITER = TEXT.split(",")
+                for deleter in SPLITER:
+                   del MAINLIST[VALUE[int(deleter) - 1]]
+                   print (MAINLIST)
+                save()
+            except:
+                pass
 
 
         BUTTON1.bind("<ButtonRelease-1>", EDIT)
@@ -159,6 +167,8 @@ class MainApp(MDApp):
         WINDOW = tkinter.Tk()
         WINDOW.title("Tabel")
         WINDOW.geometry("600x670+5+5")
+        BUTTON = Button(WINDOW, text="Confrim")
+        BUTTON.place(x="140", y="25")
         data = [["Serie Name", "Season"]]
 
         DICT=LISTFORRUN()
@@ -175,9 +185,11 @@ class MainApp(MDApp):
 
     def NEW(self):
         #in here we add new serie to the table
-        NAMESERIE = TKINTERSMALL("620x70","Directory","New series:","100","Confrim","560","25")
-        MAINLIST[NAMESERIE] = 0
-        save()
-
+        try:
+            NAMESERIE = TKINTERSMALL("620x70","Directory","New series:","100","Confrim","560","25")
+            MAINLIST[NAMESERIE] = 0
+            save()
+        except:
+            pass
 
 MainApp().run()
