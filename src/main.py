@@ -141,27 +141,28 @@ class MainApp(MDApp):
             BUTTON.bind("<ButtonRelease-1>", edit)
 
         def DELET(event):
-            window = tkinter.Tk()
-            window.geometry("620x70")
-            window.resizable(False, False)
-            window.title("Delete")
-            label = Label(window, text="Type number of series which you want to delete(Example:1,2,10):")
-            entryo = Entry(window, width="100")
-            button = Button(window, text="Confrim")
-            label.grid(row=0)
-            button.place(x="560", y="25")
-            entryo.place(x="5", y="30")
+            WINDOW = tkinter.Tk()
+            WINDOW.geometry("620x70")
+            WINDOW.resizable(False, False)
+            WINDOW.title("Delete")
+            LABEL = Label(WINDOW, text="Type number of series which you want to delete(Example:1,2,10):")
+            INPUT = Entry(WINDOW, width="100")
+            BUTTON = Button(WINDOW, text="Confrim")
+            LABEL.grid(row=0)
+            BUTTON.place(x="560", y="25")
+            INPUT.place(x="5", y="30")
 
             def bind(event):
-                die = entryo.get()
-                jodakonnande=die.split(",")
-                for deleter in jodakonnande:
+                TEXT = INPUT.get()
+                SPLITER = TEXT.split(",")
+                for deleter in SPLITER:
                    del MAINLIST[VALUE[int(deleter) - 1]]
-
                    print (MAINLIST)
-            button.bind("<ButtonRelease-1>", bind)
+                save()
 
-            window.mainloop()
+            BUTTON.bind("<ButtonRelease-1>", bind)
+
+            WINDOW.mainloop()
 
         BUTTON1.bind("<ButtonRelease-1>", EDIT)
         BUTTON2.bind("<ButtonRelease-1>", DELET)
