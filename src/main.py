@@ -78,65 +78,69 @@ class MainApp(MDApp):
         WINDOW.geometry("920x670+20+5")
 
         LISTRUN = LISTFORRUN()
-        lumpenn = []
-        lumpen = []
-        for key, value in LISTRUN.items():
-            lumpen.append(key)
-            lumpenn.append(value)
-        for kokoqe in range(0, len(lumpenn)):
-            mo = Label(WINDOW, text="[{0}]  {1}  ".format((kokoqe + 1), lumpen[kokoqe]))
-            print(len(LISTRUN))
-            moz = "15"
-            if (kokoqe > 21):
-                moz = "500"
-                aw = 10 + (kokoqe - 22) * 30
-                if (kokoqe > 43):
-                    aw = 10 + (kokoqe - 44) * 30
-                    moz = "1000"
-            else:
-                aw = 10 + kokoqe * 30
-            mo.place(x=moz, y=aw)
-        buttone = Button(WINDOW, text="Edit", width="10")
-        buttone.place(x="820", y="620")
-        button = Button(WINDOW, text="Delete", width="10")
-        button.place(x="730", y="620")
+        KEY = []
+        VALUE = []
 
-        def binda(event):
-            windowq = tkinter.Tk()
-            windowq.geometry("200x70")
-            windowq.resizable(False, False)
-            windowq.title("type")
-            label = Label(windowq, text="Write series number:")
-            entryoq = Entry(windowq, width="25")
-            button = Button(windowq, text="Confrim")
-            label.grid(row=0)
-            button.place(x="140", y="25")
-            entryoq.place(x="5", y="30")
+        for key, value in LISTRUN.items():
+            VALUE.append(key)
+            KEY.append(value)
+
+        for NUMKEY in range(0, len(KEY)):
+            LABEL = Label(WINDOW, text="[{0}]  {1}  ".format((NUMKEY + 1), VALUE[NUMKEY]))
+            X = "15"
+            if (NUMKEY > 21):
+                X = "500"
+                Y = 10 + (NUMKEY - 22) * 30
+                if (NUMKEY > 43):
+                    Y = 10 + (NUMKEY - 44) * 30
+                    X = "1000"
+            else:
+                Y = 10 + NUMKEY * 30
+            LABEL.place(x=X, y=Y)
+        BUTTON1 = Button(WINDOW, text="Edit", width="10")
+        BUTTON1.place(x="820", y="620")
+
+        BUTTON2 = Button(WINDOW, text="Delete", width="10")
+        BUTTON2.place(x="730", y="620")
+
+        def EDIT(event):
+            WINDOW = tkinter.Tk()
+            WINDOW.geometry("200x70")
+            WINDOW.resizable(False, False)
+            WINDOW.title("type")
+            LABEL = Label(WINDOW, text="Write series number:")
+            INPUT = Entry(WINDOW, width="25")
+            BUTTON = Button(WINDOW, text="Confrim")
+            LABEL.grid(row=0)
+            BUTTON.place(x="140", y="25")
+            INPUT.place(x="5", y="30")
 
             def edit(event):
-                numserie= int(entryoq.get())-1
-                windowedit = tkinter.Tk()
-                windowedit.geometry("620x70")
-                windowedit.resizable(False, False)
-                windowedit.title("{0}".format(lumpen[numserie]))
-                label = Label(windowedit, text="{0}.Season ".format(lumpen[numserie]))
-                entryo = Entry(windowedit, width="100")
-                buttonqq = Button(windowedit, text="Confrim")
-                label.grid(row=0)
-                buttonqq.place(x="560", y="25")
-                entryo.place(x="5", y="30")
+                NUMSERIE = int(INPUT.get())-1
+                WINDOW = tkinter.Tk()
+                WINDOW.geometry("620x70")
+                WINDOW.resizable(False, False)
+
+                WINDOW.title(f"{VALUE[NUMSERIE]}")
+                LABEL = Label(WINDOW, text=f"{VALUE[NUMSERIE]} Season ")
+                INPUT1 = Entry(WINDOW, width="100")
+                BUTTON = Button(WINDOW, text="Confrim")
+                LABEL.grid(row=0)
+                BUTTON.place(x="560", y="25")
+                INPUT1.place(x="5", y="30")
                 def confrim(event):
-                    numserie1 = numserie
-                    seasonupdate = int(entryo.get())
-                    MAINLIST[lumpen[numserie1]] = seasonupdate
+                    numserie1 = NUMSERIE
+                    seasonupdate = int(INPUT1.get())
+                    MAINLIST[VALUE[numserie1]] = seasonupdate
                     print(MAINLIST)
+                    save()
 
-                buttonqq.bind("<ButtonRelease-1>", confrim)
-                windowedit.mainloop()
+                BUTTON.bind("<ButtonRelease-1>", confrim)
+                WINDOW.mainloop()
 
-            button.bind("<ButtonRelease-1>", edit)
+            BUTTON.bind("<ButtonRelease-1>", edit)
 
-        def bindq(event):
+        def DELET(event):
             window = tkinter.Tk()
             window.geometry("620x70")
             window.resizable(False, False)
@@ -152,15 +156,15 @@ class MainApp(MDApp):
                 die = entryo.get()
                 jodakonnande=die.split(",")
                 for deleter in jodakonnande:
-                   del MAINLIST[lumpen[int(deleter) - 1]]
+                   del MAINLIST[VALUE[int(deleter) - 1]]
 
                    print (MAINLIST)
             button.bind("<ButtonRelease-1>", bind)
 
             window.mainloop()
 
-        buttone.bind("<ButtonRelease-1>", binda)
-        button.bind("<ButtonRelease-1>", bindq)
+        BUTTON1.bind("<ButtonRelease-1>", EDIT)
+        BUTTON2.bind("<ButtonRelease-1>", DELET)
 
         WINDOW.mainloop()
 
