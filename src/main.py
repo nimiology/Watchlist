@@ -35,13 +35,13 @@ except:
 
 def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     #Tkinter for str
-    WINDOW = tkinter.Tk()
-    WINDOW.geometry(geometry)
-    WINDOW.resizable(False, False)
-    WINDOW.title(title)
-    LABEL = Label(WINDOW, text=label)
-    INPUT = Entry(WINDOW, width=inputwidth)
-    BUTTON = Button(WINDOW, text=buttontext)
+    windoww = tkinter.Tk()
+    windoww.geometry(geometry)
+    windoww.resizable(False, False)
+    windoww.title(title)
+    LABEL = Label(windoww, text=label)
+    INPUT = Entry(windoww, width=inputwidth)
+    BUTTON = Button(windoww, text=buttontext)
     LABEL.grid(row=0)
     BUTTON.place(x=X, y=Y)
     INPUT.place(x="5", y="30")
@@ -49,11 +49,12 @@ def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     def bind(event):
         global TXTBIND
         TXTBIND = INPUT.get()
-        WINDOW.destroy()
+        windoww.quit()
+        windoww.destroy()
 
     BUTTON.bind("<ButtonRelease-1>", bind)
 
-    WINDOW.mainloop()
+    windoww.mainloop()
     return TXTBIND
 
 def DIRECTORY():
@@ -147,7 +148,13 @@ def EDIT():
     BUTTON2.bind("<ButtonRelease-1>", DELET)
 
     WINDOW.mainloop()
-
+def TABEl():
+    data = [["Serie Name", "Season"]]
+    DICT = LISTFORRUN()
+    for key, value in DICT.items():
+        data.append([key, value])
+    TABLe = tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
+    return TABLe
 def NEW():
     #in here we add new serie to the table
     try:
@@ -155,30 +162,28 @@ def NEW():
                                  ,"100","Confrim","555","27")
         MAINLIST[NAMESERIE] = 0
         save()
+        print("fuck error")
     except:
         pass
 
 def TABEL():
+    def setTextInput(text):
+        TEXT.delete(1.0, "end")
+        TEXT.insert(1.0, text)
     #show table
     WINDOW = tkinter.Tk()
     WINDOW.resizable(False, False)
     WINDOW.geometry('1100x650')
     WINDOW.title("Tabel")
-    data = [["Serie Name", "Season"]]
     TEXT = tkinter.Text(WINDOW,height=40, width=70)
     TEXT.grid(column=0)
-    DICT = LISTFORRUN()
-    for key, value in DICT.items():
-        data.append([key, value])
-    TABLe = tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
-    TEXT.insert(tkinter.END, f"{TABLe}")
-    BUTTON0 = Button(WINDOW, text="New" ,height=12, width=70)
-    BUTTON1 = Button(WINDOW, text='Edit',height=12, width=70)
+    TEXT.insert(tkinter.END, f"{TABEl()}")
+    BUTTON0 = Button(WINDOW, text="New" ,height=12, width=70,command=NEW)
+    BUTTON1 = Button(WINDOW, text='Edit',height=12, width=70,command=lambda:setTextInput(TABEl()))
     BUTTON2 = Button(WINDOW, text='Delet',height=12, width=70)
     BUTTON0.place(x=580,y=15)
     BUTTON1.place(x=580,y=225)
     BUTTON2.place(x=580,y=425)
-
     WINDOW.mainloop()
 
 
