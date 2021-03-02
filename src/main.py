@@ -79,15 +79,12 @@ def EDIT():
     WINDOW = tkinter.Tk()
     WINDOW.title("Edit")
     WINDOW.geometry("920x670+20+5")
-
     LISTRUN = LISTFORRUN()
     KEY = []
     VALUE = []
-
     for key, value in LISTRUN.items():
         VALUE.append(key)
         KEY.append(value)
-
     for NUMKEY in range(0, len(KEY)):
         LABEL = Label(WINDOW, text="[{0}]  {1}  ".format((NUMKEY + 1), VALUE[NUMKEY]))
         X = "15"
@@ -102,7 +99,6 @@ def EDIT():
         LABEL.place(x=X, y=Y)
     BUTTON1 = Button(WINDOW, text="Edit", width="10")
     BUTTON1.place(x="820", y="620")
-
     BUTTON2 = Button(WINDOW, text="Delete", width="10")
     BUTTON2.place(x="730", y="620")
 
@@ -162,7 +158,6 @@ def NEW():
     except:
         pass
 
-
 def TABEL():
     #show table
     WINDOW = tkinter.Tk()
@@ -170,7 +165,6 @@ def TABEL():
     WINDOW.geometry('1100x650')
     WINDOW.title("Tabel")
     data = [["Serie Name", "Season"]]
-
     TEXT = tkinter.Text(WINDOW,height=40, width=70)
     TEXT.grid(column=0)
     DICT = LISTFORRUN()
