@@ -28,6 +28,7 @@ def save():
 def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     #Tkinter for str
     windoww = tkinter.Tk()
+    windoww.wm_iconbitmap("SeriesGuide.ico")
     windoww.geometry(geometry)
     windoww.resizable(False, False)
     windoww.title(title)
@@ -62,8 +63,9 @@ def EDIT():
     WINDOWEDIT = tkinter.Tk()
     WINDOWEDIT.geometry("225x70")
     WINDOWEDIT.resizable(False, False)
-    WINDOWEDIT.title("type")
-    LABEL = Label(WINDOWEDIT, text="Write series number:")
+    WINDOWEDIT.wm_iconbitmap("SeriesGuide.ico")
+    WINDOWEDIT.title("Edit")
+    LABEL = Label(WINDOWEDIT, text="Type series number:")
     INPUT = Entry(WINDOWEDIT, width="35")
     LABEL.grid(row=0)
     INPUT.place(x="5", y="30")
@@ -147,6 +149,7 @@ except:
 
 #main page
 WINDOW = tkinter.Tk()
+WINDOW.wm_iconbitmap("SeriesGuide.ico")
 WINDOW.resizable(False, False)
 WINDOW.geometry('1100x650')
 WINDOW.title("Tabel")
