@@ -25,14 +25,6 @@ def save():
     with open(saveplace, "+w") as file:
         file.write(json.dumps(MAINLIST))
 
-
-try:
-    MAINLIST.update(LISTFORRUN())
-except:
-    save()
-
-
-
 def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     #Tkinter for str
     windoww = tkinter.Tk()
@@ -58,9 +50,6 @@ def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     return TXTBIND
 
 
-
-
-
 def EDIT():
     #split key and value
     LISTRUN = LISTFORRUN()
@@ -71,17 +60,14 @@ def EDIT():
         KEY.append(value)
     #gui
     WINDOWEDIT = tkinter.Tk()
-    WINDOWEDIT.geometry("200x70")
+    WINDOWEDIT.geometry("225x70")
     WINDOWEDIT.resizable(False, False)
     WINDOWEDIT.title("type")
     LABEL = Label(WINDOWEDIT, text="Write series number:")
-    INPUT = Entry(WINDOWEDIT, width="25")
-    BUTTON = Button(WINDOWEDIT, text="Confrim")
+    INPUT = Entry(WINDOWEDIT, width="35")
     LABEL.grid(row=0)
-    BUTTON.place(x="140", y="26")
     INPUT.place(x="5", y="30")
-
-    def edit(event):
+    def edit():
         NUMSERIE = int(INPUT.get())
         numserie1 = NUMSERIE
 
@@ -89,15 +75,15 @@ def EDIT():
                                         f"{VALUE[NUMSERIE]} Season ",
                                         "100","Confrim","555","27"))
         MAINLIST[VALUE[numserie1]] = seasonupdate
+        WINDOWEDIT.destroy()
         save()
         setTextInput(TABEl())
-        WINDOWEDIT.quit()
-        WINDOWEDIT.destroy()
+
+    BUTTON = Button(WINDOWEDIT, text="Confrim",command=edit)
+    BUTTON.place(x="163", y="27")
 
 
 
-
-    BUTTON.bind("<ButtonRelease-1>", edit)
 
 def DELET():
     LISTRUN = LISTFORRUN()
@@ -152,6 +138,12 @@ def NEW():
 def setTextInput(text):
     TEXTTABLE.delete(1.0, "end")
     TEXTTABLE.insert(1.0, text)
+
+
+try:
+    MAINLIST.update(LISTFORRUN())
+except:
+    save()
 
 #main page
 WINDOW = tkinter.Tk()
