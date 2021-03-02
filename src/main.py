@@ -57,13 +57,81 @@ def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     windoww.mainloop()
     return TXTBIND
 
-def DIRECTORY():
-    #in here we give directory after that this will get
-    #name of folders in directory
+
+
+
+
+def EDIT():
+    #split key and value
+    LISTRUN = LISTFORRUN()
+    KEY = []
+    VALUE = []
+    for key, value in LISTRUN.items():
+        VALUE.append(key)
+        KEY.append(value)
+    #gui
+    WINDOWEDIT = tkinter.Tk()
+    WINDOWEDIT.geometry("200x70")
+    WINDOWEDIT.resizable(False, False)
+    WINDOWEDIT.title("type")
+    LABEL = Label(WINDOWEDIT, text="Write series number:")
+    INPUT = Entry(WINDOWEDIT, width="25")
+    BUTTON = Button(WINDOWEDIT, text="Confrim")
+    LABEL.grid(row=0)
+    BUTTON.place(x="140", y="26")
+    INPUT.place(x="5", y="30")
+
+    def edit(event):
+        NUMSERIE = int(INPUT.get())
+        numserie1 = NUMSERIE
+
+        seasonupdate = int(TKINTERSMALL("620x70",f"{VALUE[NUMSERIE]}",
+                                        f"{VALUE[NUMSERIE]} Season ",
+                                        "100","Confrim","555","27"))
+        MAINLIST[VALUE[numserie1]] = seasonupdate
+        save()
+        setTextInput(TABEl())
+        WINDOWEDIT.quit()
+        WINDOWEDIT.destroy()
+
+
+
+
+    BUTTON.bind("<ButtonRelease-1>", edit)
+
+def DELET():
+    LISTRUN = LISTFORRUN()
+    KEY = []
+    VALUE = []
+    for key, value in LISTRUN.items():
+        VALUE.append(key)
+        KEY.append(value)
     try:
-        TXT = TKINTERSMALL("620x70","Directory","Type your series directory:"
-                           ,"100","Confrim","555","27")
-        print(TXT)
+        TEXT = TKINTERSMALL("620x70","Delete",
+                                "Type number of series which you want to delete(Example:1,2,10):",
+                                "100","Confrim","555","27")
+        SPLITER = TEXT.split(",")
+        for deleter in SPLITER:
+           del MAINLIST[VALUE[int(deleter) ]]
+           print (MAINLIST)
+        save()
+        setTextInput(TABEl())
+    except:
+        pass
+
+def TABEl():
+    data = [["Serie Name", "Season"]]
+    DICT = LISTFORRUN()
+    for key, value in DICT.items():
+        data.append([key, value])
+    TABLe = tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
+    return TABLe
+
+def NEW():
+    #in here we add new serie to the table
+    TXT = TKINTERSMALL("620x70", "New serie", "New series:"
+                       , "100", "Confrim", "555", "27")
+    try:
         DIRECT.append(TXT)
         my_list = os.listdir(DIRECT[len(DIRECT)-1])
 
@@ -72,120 +140,31 @@ def DIRECTORY():
         for emin in my_listw:
             MAINLIST[emin] = 0
         save()
+        setTextInput(TABEl())
     except:
-        pass
-
-def EDIT():
-    #edit serie
-    WINDOW = tkinter.Tk()
-    WINDOW.title("Edit")
-    WINDOW.geometry("920x670+20+5")
-    LISTRUN = LISTFORRUN()
-    KEY = []
-    VALUE = []
-    for key, value in LISTRUN.items():
-        VALUE.append(key)
-        KEY.append(value)
-    for NUMKEY in range(0, len(KEY)):
-        LABEL = Label(WINDOW, text="[{0}]  {1}  ".format((NUMKEY + 1), VALUE[NUMKEY]))
-        X = "15"
-        if (NUMKEY > 21):
-            X = "500"
-            Y = 10 + (NUMKEY - 22) * 30
-            if (NUMKEY > 43):
-                Y = 10 + (NUMKEY - 44) * 30
-                X = "1000"
-        else:
-            Y = 10 + NUMKEY * 30
-        LABEL.place(x=X, y=Y)
-    BUTTON1 = Button(WINDOW, text="Edit", width="10")
-    BUTTON1.place(x="820", y="620")
-    BUTTON2 = Button(WINDOW, text="Delete", width="10")
-    BUTTON2.place(x="730", y="620")
-
-    def EDIT(event):
-        WINDOW = tkinter.Tk()
-        WINDOW.geometry("200x70")
-        WINDOW.resizable(False, False)
-        WINDOW.title("type")
-        LABEL = Label(WINDOW, text="Write series number:")
-        INPUT = Entry(WINDOW, width="25")
-        BUTTON = Button(WINDOW, text="Confrim")
-        LABEL.grid(row=0)
-        BUTTON.place(x="140", y="25")
-        INPUT.place(x="5", y="30")
-
-        def edit(event):
-            NUMSERIE = int(INPUT.get())-1
-            numserie1 = NUMSERIE
-            try:
-                seasonupdate = int(TKINTERSMALL("620x70",f"{VALUE[NUMSERIE]}",
-                                                f"{VALUE[NUMSERIE]} Season ",
-                                                "100","Confrim","555","27"))
-                MAINLIST[VALUE[numserie1]] = seasonupdate
-                save()
-            except:
-                pass
-
-
-        BUTTON.bind("<ButtonRelease-1>", edit)
-
-    def DELET(event):
         try:
-            TEXT = NAMESERIE = TKINTERSMALL("620x70","Delete",
-                                            "Type number of series which you want to delete(Example:1,2,10):",
-                                            "100","Confrim","555","27")
-            SPLITER = TEXT.split(",")
-            for deleter in SPLITER:
-               del MAINLIST[VALUE[int(deleter) - 1]]
-               print (MAINLIST)
+            MAINLIST[TXT] = 0
             save()
+            setTextInput(TABEl())
         except:
             pass
 
+def setTextInput(text):
+    TEXTTABLE.delete(1.0, "end")
+    TEXTTABLE.insert(1.0, text)
 
-    BUTTON1.bind("<ButtonRelease-1>", EDIT)
-    BUTTON2.bind("<ButtonRelease-1>", DELET)
-
-    WINDOW.mainloop()
-def TABEl():
-    data = [["Serie Name", "Season"]]
-    DICT = LISTFORRUN()
-    for key, value in DICT.items():
-        data.append([key, value])
-    TABLe = tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
-    return TABLe
-def NEW():
-    #in here we add new serie to the table
-    try:
-        NAMESERIE = TKINTERSMALL("620x70","Directory","New series:"
-                                 ,"100","Confrim","555","27")
-        MAINLIST[NAMESERIE] = 0
-        save()
-        print("fuck error")
-    except:
-        pass
-
-def TABEL():
-    def setTextInput(text):
-        TEXT.delete(1.0, "end")
-        TEXT.insert(1.0, text)
-    #show table
-    WINDOW = tkinter.Tk()
-    WINDOW.resizable(False, False)
-    WINDOW.geometry('1100x650')
-    WINDOW.title("Tabel")
-    TEXT = tkinter.Text(WINDOW,height=40, width=70)
-    TEXT.grid(column=0)
-    TEXT.insert(tkinter.END, f"{TABEl()}")
-    BUTTON0 = Button(WINDOW, text="New" ,height=12, width=70,command=NEW)
-    BUTTON1 = Button(WINDOW, text='Edit',height=12, width=70,command=lambda:setTextInput(TABEl()))
-    BUTTON2 = Button(WINDOW, text='Delet',height=12, width=70)
-    BUTTON0.place(x=580,y=15)
-    BUTTON1.place(x=580,y=225)
-    BUTTON2.place(x=580,y=425)
-    WINDOW.mainloop()
-
-
-
-TABEL()
+#main page
+WINDOW = tkinter.Tk()
+WINDOW.resizable(False, False)
+WINDOW.geometry('1100x650')
+WINDOW.title("Tabel")
+TEXTTABLE = tkinter.Text(WINDOW,height=40, width=70)
+TEXTTABLE.grid(column=0)
+TEXTTABLE.insert(tkinter.END, f"{TABEl()}")
+BUTTON0 = Button(WINDOW, text="New" ,height=12, width=70,command=NEW)
+BUTTON1 = Button(WINDOW, text='Edit',height=12, width=70,command=EDIT)
+BUTTON2 = Button(WINDOW, text='Delet',height=12, width=70,command=DELET)
+BUTTON0.place(x=580,y=15)
+BUTTON1.place(x=580,y=225)
+BUTTON2.place(x=580,y=425)
+WINDOW.mainloop()
