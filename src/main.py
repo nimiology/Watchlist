@@ -12,7 +12,7 @@ listrer = []
 my_listw = []
 
 saveplace = "seriesguide.json"
-
+icon = "SeriesGuide.ico"
 
 def LISTFORRUN():
     LISTFORRUN = []
@@ -28,7 +28,7 @@ def save():
 def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     #Tkinter for str
     windoww = tkinter.Tk()
-    windoww.wm_iconbitmap("SeriesGuide.ico")
+    windoww.wm_iconbitmap(icon)
     windoww.geometry(geometry)
     windoww.resizable(False, False)
     windoww.title(title)
@@ -63,7 +63,7 @@ def EDIT():
     WINDOWEDIT = tkinter.Tk()
     WINDOWEDIT.geometry("225x70")
     WINDOWEDIT.resizable(False, False)
-    WINDOWEDIT.wm_iconbitmap("SeriesGuide.ico")
+    WINDOWEDIT.wm_iconbitmap(icon)
     WINDOWEDIT.title("Edit")
     LABEL = Label(WINDOWEDIT, text="Type series number:")
     INPUT = Entry(WINDOWEDIT, width="35")
@@ -149,7 +149,7 @@ except:
 
 #main page
 WINDOW = tkinter.Tk()
-WINDOW.wm_iconbitmap("SeriesGuide.ico")
+WINDOW.wm_iconbitmap(icon)
 WINDOW.resizable(False, False)
 WINDOW.geometry('1100x650')
 WINDOW.title("Tabel")
