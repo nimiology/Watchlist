@@ -162,7 +162,8 @@ def NEW():
     except:
         pass
 
-def TABLE():
+
+def TABEL():
     #show table
     WINDOW = tkinter.Tk()
     WINDOW.resizable(False, False)
@@ -170,19 +171,22 @@ def TABLE():
     WINDOW.title("Tabel")
     data = [["Serie Name", "Season"]]
 
-    DICT=LISTFORRUN()
-
-    for key, value in DICT.items():
-        data.append([key,value])
-
-    TABLE=tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
     TEXT = tkinter.Text(WINDOW,height=40, width=70)
     TEXT.grid(column=0)
-    TEXT.insert(tkinter.END, f"{TABLE}")
+    DICT = LISTFORRUN()
+    for key, value in DICT.items():
+        data.append([key, value])
+    TABLe = tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
+    TEXT.insert(tkinter.END, f"{TABLe}")
+    BUTTON0 = Button(WINDOW, text="New" ,height=12, width=70)
+    BUTTON1 = Button(WINDOW, text='Edit',height=12, width=70)
+    BUTTON2 = Button(WINDOW, text='Delet',height=12, width=70)
+    BUTTON0.place(x=580,y=15)
+    BUTTON1.place(x=580,y=225)
+    BUTTON2.place(x=580,y=425)
 
-    tkinter.mainloop()
     WINDOW.mainloop()
 
 
 
-TABLE()
+TABEL()
