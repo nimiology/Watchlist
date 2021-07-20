@@ -7,7 +7,7 @@ from tabulate import _table_formats, tabulate
 
 DIRECT = []
 direct01 = []
-MAINLIST = {}
+Main_Dict = {}
 listrer = []
 my_listw = []
 
@@ -17,13 +17,13 @@ icon = "SeriesGuide.ico"
 def LISTFORRUN():
     LISTFORRUN = []
     with open(saveplace, "r") as FILE:
-        for line in FILE:
-            LISTFORRUN.append(eval(line))
-    return LISTFORRUN[len(LISTFORRUN)-1]
+        return json.load(FILE)
+
 
 def save():
     with open(saveplace, "+w") as file:
-        file.write(json.dumps(MAINLIST))
+        file.write(json.dumps(Main_Dict))
+
 
 def TKINTERSMALL(geometry,title,label,inputwidth,buttontext,X,Y):
     #Tkinter for str
@@ -76,15 +76,13 @@ def EDIT():
         seasonupdate = int(TKINTERSMALL("620x70",f"{VALUE[NUMSERIE]}",
                                         f"{VALUE[NUMSERIE]} Season ",
                                         "100","Confrim","555","27"))
-        MAINLIST[VALUE[numserie1]] = seasonupdate
+        Main_Dict[VALUE[numserie1]] = seasonupdate
         WINDOWEDIT.destroy()
         save()
         setTextInput(TABEl())
 
     BUTTON = Button(WINDOWEDIT, text="Confrim",command=edit)
     BUTTON.place(x="163", y="27")
-
-
 
 
 def DELET():
@@ -100,12 +98,13 @@ def DELET():
                                 "100","Confrim","555","27")
         SPLITER = TEXT.split(",")
         for deleter in SPLITER:
-           del MAINLIST[VALUE[int(deleter) ]]
-           print (MAINLIST)
+           del Main_Dict[VALUE[int(deleter)]]
+           print (Main_Dict)
         save()
         setTextInput(TABEl())
     except:
         pass
+
 
 def TABEl():
     data = [["Serie Name", "Season"]]
@@ -114,6 +113,7 @@ def TABEl():
         data.append([key, value])
     TABLe = tabulate(data, headers='firstrow', showindex='always', tablefmt='fancy_grid')
     return TABLe
+
 
 def NEW():
     #in here we add new serie to the table
@@ -126,16 +126,17 @@ def NEW():
         for jojoj in my_list:
             my_listw.append(jojoj)
         for emin in my_listw:
-            MAINLIST[emin] = 0
+            Main_Dict[emin] = 0
         save()
         setTextInput(TABEl())
     except:
         try:
-            MAINLIST[TXT] = 0
+            Main_Dict[TXT] = 0
             save()
             setTextInput(TABEl())
         except:
             pass
+
 
 def setTextInput(text):
     TEXTTABLE.delete(1.0, "end")
@@ -143,7 +144,7 @@ def setTextInput(text):
 
 
 try:
-    MAINLIST.update(LISTFORRUN())
+    Main_Dict.update(LISTFORRUN())
 except:
     save()
 
