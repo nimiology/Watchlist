@@ -3,9 +3,9 @@ from bs4 import BeautifulSoup
 from imdb import IMDb
 
 info = {}
-def saverposter(link):
+
+def saverposter(link, DIRCOVER):
     response = requests.get(link)
-    DIRCOVER = "searcher/poster.jpg"
     file = open(DIRCOVER, "wb")
     file.write(response.content)
     file.close()
@@ -53,5 +53,10 @@ def imdb(LINK):
                 listname.append(name['name'])
         except:
             listname.append(str(film[i]))
-    saverposter(POSTER)
+
+    COVER_DIR = f'Statics/Covers/{ID}.jpg'
+    saverposter(POSTER, COVER_DIR)
+    info['COVER'] = COVER_DIR
+
+
     return info
