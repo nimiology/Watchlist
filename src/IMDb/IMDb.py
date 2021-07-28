@@ -10,23 +10,12 @@ def saverposter(link, DIRCOVER):
     file.write(response.content)
     file.close()
 
-def poster(BS):
-    POSTER = BS.find_all(class_='poster')
-    POSTER = POSTER[0].a.get("href")
-    POSTER = f"https://www.imdb.com/{POSTER}"
-    POSTERSITE = requests.get(POSTER).text
-    POSTERBS = BeautifulSoup(POSTERSITE, 'lxml')
-    POSTER = POSTERBS.find_all(class_='MediaViewerImagestyles__PortraitImage-sc-1qk433p-0 bnaOri')
-    POSTER = POSTER[0].get("src")
-    return POSTER
-
 
 
 def imdb(LINK):
 
     req = requests.get(LINK).text
     BS= BeautifulSoup(req,"lxml")
-    POSTER = poster(BS)
     try:
         SERIEORFILM = BS.find_all(class_='button_panel navigation_panel')
         SERIEORFILM = SERIEORFILM[0]
@@ -55,7 +44,7 @@ def imdb(LINK):
             listname.append(str(film[i]))
 
     COVER_DIR = f'Statics/Covers/{ID}.jpg'
-    saverposter(POSTER, COVER_DIR)
+    saverposter(film['full-size cover url'], COVER_DIR)
     info['COVER'] = COVER_DIR
 
 

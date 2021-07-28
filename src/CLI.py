@@ -2,7 +2,7 @@ import os
 import time
 import json
 from tabulate import _table_formats, tabulate
-
+from IMDb import IMDb
 
 json_Dir = "seriesguide.json"
 
@@ -36,18 +36,21 @@ while STATUS:
         DO = int(input(Command))
         if DO == 1:
             print('Enter IMDb link: ')
-            time.sleep(10)
+            time.sleep(5)
             os.system('start https://imdb.com')
             Link_IMDb = input('')
+            print(IMDb.imdb(Link_IMDb))
+            break
+
         elif DO == 2:
             pass
         elif DO == 3:
             pass
-        elif DO == 4 :
+        elif DO == 4:
             pass
-        elif DO == 5 :
+        elif DO == 5:
             pass
-        elif DO == 6 :
+        elif DO == 6:
             pass
     except:
         print('Just numbers acceptable!')
