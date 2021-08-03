@@ -1,8 +1,9 @@
 import os
 import time
 import json
-from tabulate import _table_formats, tabulate
+from tabulate import tabulate
 from IMDb import IMDb
+from utils import import_export
 
 json_Dir = "seriesguide.json"
 
@@ -40,16 +41,17 @@ while STATUS:
             os.system('start https://imdb.com')
             Link_IMDb = input('')
             print(IMDb.imdb(Link_IMDb))
-            break
+            #GUI
 
         elif DO == 2:
             pass
+
         elif DO == 3:
             pass
         elif DO == 4:
             pass
         elif DO == 5:
-            pass
+            import_export.Export().gui()
         elif DO == 6:
             pass
     except:
