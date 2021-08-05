@@ -11,7 +11,7 @@ Main_Dict = {}
 listrer = []
 my_listw = []
 
-saveplace = "seriesguide.json"
+saveplace = "Statics/seriesguide.json"
 icon = "SeriesGuide.ico"
 
 def LISTFORRUN():

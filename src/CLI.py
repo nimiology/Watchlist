@@ -49,9 +49,9 @@ while STATUS:
         elif DO == 3:
             pass
         elif DO == 4:
-            pass
+            import_export.Import()
         elif DO == 5:
-            import_export.Export().gui()
+            import_export.Export()
         elif DO == 6:
             pass
     except:
