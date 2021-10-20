@@ -3,6 +3,8 @@ import os
 import tkinter
 from tkinter import *
 from tabulate import _table_formats, tabulate
+from pathlib import Path
+
 
 
 DIRECT = []
@@ -11,7 +13,7 @@ Main_Dict = {}
 listrer = []
 my_listw = []
 
-saveplace = "Statics/seriesguide.json"
+saveplace = "seriesguide.json"
 icon = "SeriesGuide.ico"
 
 def LISTFORRUN():
@@ -139,8 +141,8 @@ def NEW():
 
 
 def setTextInput(text):
-    TEXTTABLE.delete(1.0, "end")
-    TEXTTABLE.insert(1.0, text)
+    entry_1.delete(1.0, "end")
+    entry_1.insert(1.0, text)
 
 
 try:
@@ -149,18 +151,111 @@ except:
     save()
 
 #main page
-WINDOW = tkinter.Tk()
-WINDOW.wm_iconbitmap(icon)
-WINDOW.resizable(False, False)
-WINDOW.geometry('1100x650')
-WINDOW.title("Tabel")
-TEXTTABLE = tkinter.Text(WINDOW,height=40.4, width=70)
-TEXTTABLE.grid(column=0)
-TEXTTABLE.insert(tkinter.END, f"{TABEl()}")
-BUTTON0 = Button(WINDOW, text="New" ,height=12, width=70,command=NEW)
-BUTTON1 = Button(WINDOW, text='Edit',height=12, width=70,command=EDIT)
-BUTTON2 = Button(WINDOW, text='Delet',height=12, width=70,command=DELET)
-BUTTON0.place(x=580,y=16)
-BUTTON1.place(x=580,y=226)
-BUTTON2.place(x=580,y=431)
-WINDOW.mainloop()
+
+OUTPUT_PATH = Path(__file__).parent
+ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+
+
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
+
+
+window = Tk()
+
+window.geometry("700x400")
+window.configure(bg = "#231F20")
+
+
+canvas = Canvas(
+    window,
+    bg = "#231F20",
+    height = 400,
+    width = 700,
+    bd = 0,
+    highlightthickness = 0,
+    relief = "ridge"
+)
+
+canvas.place(x = 0, y = 0)
+canvas.create_rectangle(
+    25.0,
+    30.0,
+    670.0,
+    305.0,
+    fill="#C03755",
+    outline="")
+
+entry_image_1 = PhotoImage(
+    file=relative_to_assets("entry_1.png")
+)
+entry_bg_1 = canvas.create_image(
+    352.0,
+    162.5,
+    image=entry_image_1
+)
+entry_1 = Text(
+    bd=0,
+    bg="#FFFFFF",
+    highlightthickness=0
+)
+entry_1.place(
+    x=33.0,
+    y=25.0,
+    width=638.0,
+    height=273.0
+)
+entry_1.insert(tkinter.END, f"{TABEl()}")
+
+button_image_1 = PhotoImage(
+    file=relative_to_assets("button_1.png"))
+button_1 = Button(
+    image=button_image_1,
+    borderwidth=0,
+    bg = "#231F20",
+    highlightthickness=0,
+    command=lambda: DELET(),
+    relief="flat"
+)
+button_1.place(
+    x=436.0,
+    y=325.0,
+    width=104.0,
+    height=46.0
+)
+
+button_image_2 = PhotoImage(
+    file=relative_to_assets("button_2.png"))
+button_2 = Button(
+    image=button_image_2,
+    bg = "#231F20",
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: EDIT(),
+    relief="flat"
+)
+button_2.place(
+    x=164.0,
+    y=325.0,
+    width=104.0,
+    height=46.0
+)
+
+button_image_3 = PhotoImage(
+    file=relative_to_assets("button_3.png"))
+button_3 = Button(
+    image=button_image_3,
+    bg = "#231F20",
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: NEW(),
+    relief="flat"
+)
+button_3.place(
+    x=303.0,
+    y=325.0,
+    width=104.0,
+    height=46.0
+)
+window.resizable(False, False)
+window.mainloop()
+
