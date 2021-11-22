@@ -1,5 +1,5 @@
 # SeriesGudie
-This project save name and season of the serie which you saw!
+It's about saving the seasons of the series that you watched.
 
 ## Getting Started
 
